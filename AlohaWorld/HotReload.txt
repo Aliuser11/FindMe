@@ -1,0 +1,24 @@
+﻿HOT RELOAD => change dotnet bot and property of the label when app is running
+
+1. Open the file MainPage.xaml.
+2. Find the Text property of the Label element that is assigned the value
+‘Hello, World!’. Change this to ‘Aloha, World!’.
+3. Switch back to your running app. You should see your label updated to
+show your ‘Aloha, World!’ message.
+4. In Solution Explorer, right click on the Resources folder, and from the
+context menu choose Add existing item.
+5. Use the file browser to select your custom Dotnet Bot that you
+downloaded earlier.
+6. Once your custom Dotnet Bot is imported, right click on the image in
+the Resources folder and select Properties.
+7. In the Properties window, ensure that the Build Action is set to
+MauiImage.
+8. Back in the MainPage.xaml file, note the Source property of the Image
+element is set to dotnet_bot on line 42. Change this to the filename
+(including extension) of the file you imported in step 4.
+9. Save the changes to the MainPage.xaml file.
+10. To the left of the Run button on the toolbar, note a button with a red
+flame on it (see Figure 2.19). This is the Hot Reload button.
+11. Click the Hot Reload button. At this point, Visual Studio will show you
+a warning, letting you know that it can’t apply your changes with hot
+reload, and that you’ll have to let it rebuild. Go ahead

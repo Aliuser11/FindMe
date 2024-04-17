@@ -1,0 +1,5 @@
+naming convention:
+use PascalCase for all public properties
+underscored_camelCase for private fields
+for XAML properties  use PascalCase with the convention of [property or action][ElementType]
+For example, LoginButton or UsernameEntry.
