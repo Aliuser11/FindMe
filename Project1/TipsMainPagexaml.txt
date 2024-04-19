@@ -1,0 +1,29 @@
+
+** When the value of Text on the Entry changes, the Label changes automatically.
+
+<VerticalStackLayout VerticalOptions="Center" 
+                        HorizontalOptions="Center"
+                        Spacing="20"
+                        WidthRequest="200">
+        
+        <Label FontSize="Title"
+                BindingContext="{x:Reference TextEntry}" 
+                Text="{Binding Text}" 
+                HorizontalTextAlignment="Center"/>
+        
+        <Entry x:Name="TextEntry" 
+                Placeholder="Enter some text..." />
+
+
+** We’veused data binding to bind the Scale property of the Image to the Value
+property of the Slider. When Value changes on the Slider, Scale changes on the Image.
+
+<Slider x:Name="ZoomSlider" /> 
+        
+        <Image Source="dotnet_bot.png" 
+                WidthRequest="300"
+                HorizontalOptions="Center"
+                BindingContext="{x:Reference ZoomSlider}" 
+                Scale="{Binding Value}" />
+        
+** 
