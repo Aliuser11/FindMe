@@ -1,24 +1,50 @@
-﻿namespace MauiToDo
+﻿using MauiTodo.Data;
+using MauiTodo.Models;
+using System.Collections.ObjectModel;
+
+namespace MauiToDo
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
+       
+        
+        readonly Database _database;
 
         public MainPage()
         {
             InitializeComponent();
+            _database = new Database();
+            _ = Initialize();
+
+            TodosCollection.ItemsSource = Todos;
+        }
+        public ObservableCollection<TodoItem> Todos { get; set; } = new();
+
+
+        private async Task Initialize()
+        {
+            var todos = await _database.GetTodos();
+            foreach (var todo in todos)
+            {
+                Todos.Add(todo);
+            }        
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            count++;
+            var todo = new TodoItem
+            {
+                Due = DueDatepicker.Date,
+                Title = TodoTitleEntry.Text
+            };
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            var inserted = await _database.AddTodo(todo);
+            if (inserted != 0)
+            {
+                Todos.Add(todo);
+                TodoTitleEntry.Text = string.Empty;
+                DueDatepicker.Date = DateTime.Now;
+            }
         }
     }
 
