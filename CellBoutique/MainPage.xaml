@@ -14,12 +14,25 @@
         <CarouselView.ItemTemplate>
             <DataTemplate>
                 <VerticalStackLayout Spacing="20">
-                    
+
                     <Image Source="{Binding Image}"
-                           WidthRequest="400"
-                           HeightRequest="500"
+                           WidthRequest="300"
+                           HeightRequest="400"
                            Aspect="AspectFill"
-                           HorizontalOptions="Center"/>
+                           HorizontalOptions="Center">
+
+                        <Image.Clip>
+                            <GeometryGroup>/
+                                <ElipseGeometry Center ="150,100"
+                                                RadiusX="100"
+                                                RadiusY="100"/>
+
+                                <ElipseGeometry Center ="150,200"
+                                                RadiusX="150"
+                                                RadiusY="200"/>
+                            </GeometryGroup>
+                        </Image.Clip>
+                    </Image>
 
                     <HorizontalStackLayout Spacing="20">
                         <VerticalStackLayout WidthRequest="200"
