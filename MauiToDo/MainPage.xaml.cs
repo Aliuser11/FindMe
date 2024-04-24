@@ -20,6 +20,12 @@ namespace MauiToDo
         }
         public ObservableCollection<TodoItem> Todos { get; set; } = new();
 
+        private async void SwipeItem_Invoked(object sender, EventArgs e)
+        {
+            var item = sender as SwipeItem;
+            await App.Current.MainPage.
+                DisplayAlert(item.Text, $"You invoked the {item.Text} action.", "OK");
+        }
 
         private async Task Initialize()
         {
