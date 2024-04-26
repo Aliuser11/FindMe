@@ -1,25 +1,84 @@
-﻿namespace MauiCalc
+﻿using System.Globalization;
+
+namespace MauiCalc
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
+        public string CurrentInput { get; set; } = String.Empty;
+        public string RunningTotal { get; set; } = String.Empty;
+        private string selectedOperator;
+        string[] operators = { "+", "-", "/", "X", "=" }; 
+        string[] numbers = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "." };
+        bool resetOnNextInput = false;
+        
         public MainPage()
         {
             InitializeComponent();
         }
-
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void Button_Clicked(object sender, EventArgs e)
         {
-            count++;
+            var btn = sender as Button;var thisInput = btn.Text;
+            if(numbers.Contains(thisInput))
+            {
+                if (resetOnNextInput)
+                {
+                    CurrentInput = btn.Text;
+                    resetOnNextInput = false;
+                }
+                else
+                {
+                    CurrentInput += btn.Text;
+                }
+                LCD.Text = CurrentInput;
+            }
+            else if(operators.Contains(thisInput))
+            {
+                var result = PerformCalculation();
+                if(thisInput == "=")
+                {
+                    CurrentInput = result.ToString();
+                    LCD.Text = CurrentInput;
+                    RunningTotal = String.Empty;
+                    selectedOperator = String.Empty;
+                    resetOnNextInput = true;
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+                }
+                else
+                {
+                    RunningTotal = result.ToString();
+                    selectedOperator = thisInput;
+                    CurrentInput = String.Empty;
+                    LCD.Text = CurrentInput;
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+                }
+            }
+        }
+        private double PerformCalculation()
+        {
+            double currentVal;
+            double.TryParse(CurrentInput, out currentVal);
+            double runningVal;
+            double.TryParse(RunningTotal, out runningVal);
+            double result;
+            switch(selectedOperator)
+            {
+                case "+":
+                    result = runningVal + currentVal;
+                    break;
+                case "-":
+                    result = runningVal - currentVal;
+                    break;
+                case "X":
+                    result = runningVal * currentVal;
+                    break;
+                case "/":
+                    result = runningVal / currentVal;
+                    break;
+                default:
+                    result = currentVal;
+                    break;
+            }
+            return result;
         }
     }
-
 }

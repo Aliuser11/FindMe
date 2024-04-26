@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-
-namespace MauiCalc
+﻿namespace MauiCalc
 {
     public static class MauiProgram
     {
@@ -13,10 +11,12 @@ namespace MauiCalc
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("LCD.ttf", "LCD");
                 });
 
 
             return builder.Build();
         }
+        
     }
 }
