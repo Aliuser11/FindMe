@@ -14,7 +14,6 @@ namespace MauiToDo
         {
             InitializeComponent();
             _database = new Database();
-            _ = Initialize();
 
             TodosCollection.ItemsSource = Todos;
         }
@@ -27,13 +26,15 @@ namespace MauiToDo
                 DisplayAlert(item.Text, $"You invoked the {item.Text} action.", "OK");
         }
 
-        private async Task Initialize()
+        protected override async void OnAppearing()
         {
+            base.OnAppearing();
+
             var todos = await _database.GetTodos();
             foreach (var todo in todos)
             {
                 Todos.Add(todo);
-            }        
+            }
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
